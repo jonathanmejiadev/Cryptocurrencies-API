@@ -15,6 +15,7 @@ class ExpressServer {
     };
 
     _middlewares() {
+        this._app.use(express.json());
         this._app.use(morgan('dev'));
     }
 
