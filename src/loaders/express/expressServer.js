@@ -1,7 +1,8 @@
 const express = require('express');
 const morgan = require('morgan')
-const config = require('../config');
-const indexRouter = require('../routes');
+const config = require('../../config');
+const indexRouter = require('../../routes');
+const logger = require('../logger/logger');
 
 class ExpressServer {
     constructor() {
@@ -36,8 +37,8 @@ class ExpressServer {
         this._app.get((err, req, res, next) => {
             if (!err.statusCode) err.statusCode(500);
             if (!err.message) err.message('Server Internal Error');
-            console.log(`${err.statusCode} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
-            console.log(err.stack);
+            logger.error(`${err.statusCode} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+            logger.error(err.stack);
             const errorBody = {
                 success: false,
                 message: err.message,
@@ -49,7 +50,7 @@ class ExpressServer {
 
     startServer() {
         this._app.listen(this._port, () => {
-            console.log(`Server is running on port: ${this._port}`);
+            logger.info(`Server is running on port: ${this._port}`);
         });
     };
 };
