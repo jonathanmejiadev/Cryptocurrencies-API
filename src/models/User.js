@@ -1,17 +1,37 @@
-const CryptoEntity = require('./Crypto');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../loaders/database/sequelize');
 
-class UserEntity {
-    name = String;
-    surname = String;
-    username = String;
-    password = String;
-    coinPref = String;
-    cryptos = String;
-    avatar = String;
-
-    constructor() {
-
+const User = sequelize.define('User', {
+    uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
+        primaryKey: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    surname: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    prefCurrency: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    cryptos: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true
+    },
+    avatar: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
-}
+});
 
-module.exports = UserEntity;
+module.exports = User;
