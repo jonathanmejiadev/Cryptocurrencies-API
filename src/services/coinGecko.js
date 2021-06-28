@@ -2,7 +2,7 @@ const Axios = require('axios');
 
 const COIN_GECKO_API_BASE = 'https://api.coingecko.com/api/v3';
 
-const getCryptoMarketService = async (currency = 'usd', limit = 10) => {
+const getCryptoMarketService = (currency = 'usd', limit = 10) => {
     const query = `/coins/markets?vs_currency=${currency}&per_page=${limit}&order=market_cap_desc`;
     return Axios.get(`${COIN_GECKO_API_BASE + query}`).then(data => {
         return data.data.map(coin => {
