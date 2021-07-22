@@ -7,7 +7,7 @@ const logger = require('../logger/logger');
 
 class ExpressServer {
     constructor() {
-        this._app = express();
+        this.app = express();
         this._port = config.PORT;
         this._prefix = config.prefix;
         this._middlewares();
@@ -17,17 +17,17 @@ class ExpressServer {
     };
 
     _middlewares() {
-        this._app.use(express.json());
-        this._app.use(morgan('dev'));
+        this.app.use(express.json());
+        this.app.use(morgan('dev'));
     }
 
     _routes() {
-        this._app.get('/', (req, res) => res.send('<h1> Welcome to CryptoApp :) </h1>'));
-        this._app.use('/v1', indexRouter);
+        this.app.get('/', (req, res) => res.send('<h1> Welcome to CryptoApp :) </h1>'));
+        this.app.use('/v1', indexRouter);
     };
 
     _notFound() {
-        this._app.get((req, res, next) => {
+        this.app.get((req, res, next) => {
             const err = new Error('Not Found');
             err.statusCode = 404;
             next(err);
@@ -35,7 +35,7 @@ class ExpressServer {
     };
 
     _errorHandler() {
-        this._app.get((err, req, res, next) => {
+        this.app.get((err, req, res, next) => {
             if (!err.statusCode) err.statusCode(500);
             if (!err.message) err.message('Server Internal Error');
             logger.error(`${err.statusCode} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
@@ -50,7 +50,7 @@ class ExpressServer {
     };
 
     startServer() {
-        this._app.listen(this._port, () => {
+        this.app.listen(this._port, () => {
             logger.info(`Server is running on port: ${this._port}`);
         });
     };

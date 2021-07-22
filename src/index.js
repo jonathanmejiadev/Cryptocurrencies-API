@@ -1,2 +1,3 @@
-require('./loaders')();
+const { startCryptoApp } = require('./loaders');
+startCryptoApp();
 

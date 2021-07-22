@@ -1,7 +1,26 @@
 const request = require('supertest');
 
-describe('Initial Test', () => {
-    it('should test that 1 + 1 === 2', () => {
-        expect(1 + 1).toBe(2)
-    })
-})
+const { cryptoApp, db } = require('../loaders');
+const app = cryptoApp.app;
+
+let userTest = {
+    username: 'usertest',
+    password: 'passtest',
+    email: 'email@test.com'
+};
+
+describe('POST /auth/register', () => {
+    test('register a valid user', async () => {
+        const res = await request(app)
+            .post('/v1/register')
+            .send(userTest);
+        expect(res.statusCode).toEqual(201);
+        expect(res.body).toHaveProperty('success');
+        expect(res.body).toHaveProperty('data');
+    });
+});
+
+afterAll(async () => {
+    // Closing the DB connection allows Jest to exit successfully.
+    await db.sequelize.close();
+});

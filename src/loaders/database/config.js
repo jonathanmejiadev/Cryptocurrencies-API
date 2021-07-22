@@ -7,7 +7,10 @@ module.exports = {
     database: config.db.postgres.development.dbName,
     host: config.db.postgres.development.host,
     dialect: 'postgres',
-    logging: false
+    logging: false,
+    define: {
+      timestamps: false
+    }
   },
   test: {
     username: config.db.postgres.test.user,
@@ -16,7 +19,10 @@ module.exports = {
     host: config.db.postgres.test.host,
     port: config.db.postgres.test.port,
     dialect: 'postgres',
-    logging: false
+    logging: false,
+    define: {
+      timestamps: false
+    }
   },
   production: {
     username: config.db.postgres.production.user,
@@ -24,6 +30,9 @@ module.exports = {
     database: config.db.postgres.production.dbName,
     host: config.db.postgres.production.host,
     dialect: 'postgres',
-    logging: false
+    logging: false,
+    define: {
+      timestamps: false
+    }
   },
 };

@@ -2,7 +2,7 @@ const AuthService = require('../services/auth');
 
 const authService = new AuthService();
 
-const register = (req, res) => {
+const register = async (req, res) => {
     try {
         const { username, email, password } = req.body;
         let newUser = {
@@ -14,10 +14,10 @@ const register = (req, res) => {
             avatar: null
         };
         const savedUser = await authService.register(newUser);
-        res.status(201).json({ sucess: true, data: savedUser });
+        return res.status(201).json({ success: true, data: savedUser });
     } catch (err) {
         console.log(err)
-        res.status(500).json({ error: err })
+        return res.status(500).json({ error: err })
     }
 };
 

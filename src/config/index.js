@@ -18,7 +18,6 @@ module.exports = {
                 dbName: process.env.POSTGRES_DB_TEST,
                 user: process.env.POSTGRES_USER,
                 password: process.env.POSTGRES_PASSWORD,
-                port: process.env.POSTGRES_TEST_PORT,
                 host: 'localhost'
             },
             production: {
@@ -29,5 +28,4 @@ module.exports = {
             }
         }
     },
-
 };
