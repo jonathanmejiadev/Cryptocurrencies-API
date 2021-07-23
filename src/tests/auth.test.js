@@ -16,6 +16,7 @@ describe('POST /auth/register', () => {
             .send(userTest);
         expect(res.statusCode).toEqual(201);
         expect(res.body).toHaveProperty('success');
+        expect(res.body.success).toEqual(true);
         expect(res.body).toHaveProperty('data');
     });
 });
